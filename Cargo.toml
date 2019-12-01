@@ -1,0 +1,11 @@
+[package]
+name = "bank-backend-rust"
+version = "0.1.0"
+authors = ["Olof Nord <olof.nord@tutanota.com>"]
+edition = "2018"
+description = "Backend part of Fake Bank project"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rocket = "0.4.2"
