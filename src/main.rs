@@ -8,25 +8,29 @@ mod customer;
 use customer::{Customer};
 use rocket_contrib::json::{Json, JsonValue};
 
-#[get("/customers")]
-fn get_customers() -> Json<JsonValue>  {
-    Json(json!([
-        "customer 1",
-        "customer 2"
-    ]))
+#[get("/customers", format = "json")]
+fn get_customers() -> JsonValue  {
+    json!([
+        { "customer_id": "1" },
+        { "customer_id": "2" }
+    ])
 }
 
-#[post("/customers", data = "<customer>")]
+#[post("/customers", data = "<customer>", format = "json")]
 fn post_customers(customer: Json<Customer>) -> Json<Customer> {
     customer
 }
 
-#[get("/customers/<customer_id>")]
-fn get_customer(customer_id: String) -> Json<JsonValue> {
-    Json(json!({"customer_id": customer_id}))
+#[get("/customers/<customer_id>", format = "json")]
+fn get_customer(customer_id: String) -> JsonValue {
+    json!({ "customer_id": customer_id })
+}
+
+fn rocket() -> rocket::Rocket {
+    rocket::ignite().mount("/", routes![
+    get_customers, post_customers, get_customer])
 }
 
 fn main() {
-    rocket::ignite().mount("/", routes![
-    get_customers, post_customers, get_customer]).launch();
+    rocket().launch();
 }
