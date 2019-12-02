@@ -7,17 +7,20 @@
 mod customer;
 use customer::{Customer};
 use rocket_contrib::json::{Json, JsonValue};
+use uuid::Uuid;
 
 #[get("/customers", format = "json")]
 fn get_customers() -> JsonValue  {
     json!([
-        { "customer_id": "1" },
-        { "customer_id": "2" }
+        { "customer_id": Uuid::new_v4() },
+        { "customer_id": Uuid::new_v4() }
     ])
 }
 
 #[post("/customers", data = "<customer>", format = "json")]
-fn post_customers(customer: Json<Customer>) -> Json<Customer> {
+fn post_customers(mut customer: Json<Customer>) -> Json<Customer> {
+    customer.id = Option::from(Uuid::new_v4());
+
     customer
 }
 

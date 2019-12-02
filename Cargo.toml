@@ -10,9 +10,10 @@ description = "Backend part of Fake Bank project"
 [dependencies]
 rocket = "0.4.2"
 serde = "1.0"
-serde_json = "1.0"
 serde_derive = "1.0"
+uuid = { version = "0.8.1", features = [ "serde", "v4" ] }
 
 [dependencies.rocket_contrib]
+rocket = "0.4.2"
 default-features = false
-features = ["json"]
+features = [ "json" ]
