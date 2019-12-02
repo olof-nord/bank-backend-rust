@@ -25,8 +25,10 @@ fn post_customers(mut customer: Json<Customer>) -> Json<Customer> {
 }
 
 #[get("/customers/<customer_id>", format = "json")]
-fn get_customer(customer_id: String) -> JsonValue {
-    json!({ "customer_id": customer_id })
+fn get_customer(customer_id: rocket_contrib::uuid::Uuid) -> JsonValue {
+    json!({
+        "customer_id": format!("{}", customer_id)
+    })
 }
 
 fn rocket() -> rocket::Rocket {
